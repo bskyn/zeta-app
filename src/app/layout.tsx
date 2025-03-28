@@ -4,7 +4,7 @@ import './globals.css';
 
 import localFont from 'next/font/local';
 
-export const roobert = localFont({
+const roobert = localFont({
   src: [
     {
       path: '../fonts/Roobert-Light.otf',
