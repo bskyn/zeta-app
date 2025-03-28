@@ -36,8 +36,6 @@ const fetchNativeBalance = async (
   try {
     const baseUrl = getAlchemyBaseUrl(chainId);
 
-    console.log('---baseUrl---', baseUrl);
-
     const balanceResponse = await fetch(`${baseUrl}`, {
       method: 'POST',
       headers: {
@@ -59,8 +57,6 @@ const fetchNativeBalance = async (
     }
 
     const balance = balanceData.result;
-
-    console.log('---balance---', balance);
 
     if (!balance) {
       console.error('Invalid balance received:', balance);
@@ -173,7 +169,7 @@ export function useFetchNativeTokens() {
 
         if (allTokens.length > 0) {
           const priceData = await fetchNativeTokenPrices(allTokens);
-          console.log('priceData', priceData);
+
           const tokenPrices = priceData?.data || [];
 
           const nativeTokensWithPrices = allTokens.map((token, idx) => {
@@ -197,8 +193,6 @@ export function useFetchNativeTokens() {
 
     fetchNativeTokens();
   }, [address, isConnected, chainId]);
-
-  console.log('nativeTokens', nativeTokens);
 
   const totalNativeValueInUsd = nativeTokens.reduce((sum, token) => {
     if (token.priceInUsd && token.formattedBalance) {
