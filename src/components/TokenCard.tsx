@@ -30,7 +30,8 @@ const TokenCard = ({ token }: { token: Token }) => {
               className="text-xs break-words md:text-sm text-muted-foreground md:mb-1 truncate max-w-full text-left md:text-center"
               title={token.name}
             >
-              {token.name}
+              {/* add substring length to handle overflow */}
+              {token.name.substring(0, 20)}
             </div>
             <div
               className="hidden md:block text-xs text-muted-foreground mb-6 truncate max-w-full text-left md:text-center"
