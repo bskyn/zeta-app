@@ -36,6 +36,8 @@ const fetchNativeBalance = async (
   try {
     const baseUrl = getAlchemyBaseUrl(chainId);
 
+    console.log('---baseUrl---', baseUrl);
+
     const balanceResponse = await fetch(`${baseUrl}`, {
       method: 'POST',
       headers: {
@@ -45,14 +47,20 @@ const fetchNativeBalance = async (
         jsonrpc: '2.0',
         id: 1,
         method: 'eth_getBalance',
-        params: [walletAddress],
+        params: [walletAddress, 'latest'],
       }),
     });
 
     const balanceData = await balanceResponse.json();
 
+    if (balanceData.error) {
+      console.error('Error fetching balance:', balanceData.error);
+      return null;
+    }
+
     const balance = balanceData.result;
-    console.log('balance', balance);
+
+    console.log('---balance---', balance);
 
     if (!balance) {
       console.error('Invalid balance received:', balance);
@@ -114,9 +122,9 @@ const fetchNativeTokenPrices = async (tokens: Token[]) => {
 
       return {
         network:
-          token.network === sepolia.name
+          token.chainId === sepolia.id
             ? 'eth-mainnet'
-            : token.network === zetachainAthensTestnet.name
+            : token.chainId === zetachainAthensTestnet.id
             ? 'zetachain-mainnet'
             : 'eth-mainnet', // default to mainnet
         address: nativeConfig.mainnetAddress || token.address,

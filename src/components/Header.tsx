@@ -75,9 +75,6 @@ const Header = () => {
                         className="rounded-none bg-primary-foreground px-4 py-2 text-sm border-1 border-[#E5E8EC] font-medium text-primary hover:bg-primary-800"
                       >
                         {account.displayName}
-                        {account.displayBalance
-                          ? ` (${account.displayBalance})`
-                          : ''}
                       </Button>
                     </div>
                   );
